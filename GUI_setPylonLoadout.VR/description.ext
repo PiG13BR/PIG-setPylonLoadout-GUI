@@ -1,0 +1,15 @@
+#include "ui\defines.hpp"
+#include "ui\air_service_menu.hpp"
+
+class CfgFunctions
+{
+	class PIG
+	{
+		class functions {
+			file = "functions";
+			
+			class cameraAngle {};
+			class setPylonLoadout {};
+		}
+	}
+}
