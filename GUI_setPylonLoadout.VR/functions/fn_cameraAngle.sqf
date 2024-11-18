@@ -36,9 +36,9 @@ switch _angleType do {
 uiNamespace setVariable ["PIG_jetMenu_lastCamera", _angleType];
 
 // Camera init
-if (isNil {uiNamespace getVariable "PiG_jetMenu_camera"}) then {
+if (isNil {uiNamespace getVariable "PiG_pylonsMenu_camera"}) then {
 	_cam = "camera" camcreate (getPos _center); 
-	uiNamespace setVariable ["PiG_jetMenu_camera", _cam];
+	uiNamespace setVariable ["PiG_pylonsMenu_camera", _cam];
 	_cam cameraeffect ["internal","back"];
 	_cam campreparefocus [-1,-1];
 	_cam campreparefov 0.35;
@@ -47,7 +47,7 @@ if (isNil {uiNamespace getVariable "PiG_jetMenu_camera"}) then {
 };
 
 // Camera set pos
-_cam = uiNamespace getVariable "PiG_jetMenu_camera";
+_cam = uiNamespace getVariable "PiG_pylonsMenu_camera";
 _cam camSetTarget _center;
 _cam camSetPos (_center modelToWorld _angle);
 _cam camcommit 0;
