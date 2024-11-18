@@ -25,7 +25,7 @@ _light setlightcolor [0, 0, 0];
 _light lightattachobject [_vehicle,[0, 0, -_intensity * 7]];
 _light setLightDayLight false;
 
-uiNamespace setvariable ["PIG_jetMenu_LightSource", _light];
+uiNamespace setvariable ["PIG_pylonsMenu_LightSource", _light];
 
 // Reload preset list box function
 PIG_fnc_reloadPresetsLb = {
@@ -42,13 +42,13 @@ PIG_fnc_reloadPresetsLb = {
 
 	// Get cfg preset for this aircraft
 	private _presetCfgPaths = configProperties [configFile >> "CfgVehicles" >> _aircraftClass >> "Components" >> "TransportPylonsComponent" >> "Presets", "isClass _x"];
-	if (isNil "PIG_JetMenu_cfgPresets") then {PIG_JetMenu_cfgPresets = createHashMap};
+	if (isNil "PIG_pylonsMenu_cfgPresets") then {PIG_pylonsMenu_cfgPresets = createHashMap};
 	{
 		_presetName = (getText(_x >> "displayName"));
 		lbAdd [1503, _presetName];
 		// Put the attachaments in a hashmap
 		_attachs = (getArray(_x >> "attachment"));
-		PIG_JetMenu_cfgPresets set [_presetName, _attachs];
+		PIG_pylonsMenu_cfgPresets set [_presetName, _attachs];
 	}forEach _presetCfgPaths;
 
 	// Get pylon profile preset for this aircraft
@@ -239,8 +239,8 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 	private _vehicle = localNameSpace getVariable "PIG_vehicleInService";
 
 	// Check if it's a engine preset
-	if (_key in PIG_JetMenu_cfgPresets) then {
-		private _pylonsCfg = PIG_JetMenu_cfgPresets get _key;
+	if (_key in PIG_pylonsMenu_cfgPresets) then {
+		private _pylonsCfg = PIG_pylonsMenu_cfgPresets get _key;
 		if (_pylonsCfg isEqualTo []) then {
 			// Reset to default
 			lbClear 1501;
@@ -304,7 +304,7 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 	params ["_control", "_newText"];
 
 	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
-	if ((_newText in _profilePresets) || {_newText in PIG_JetMenu_cfgPresets}) then {
+	if ((_newText in _profilePresets) || {_newText in PIG_pylonsMenu_cfgPresets}) then {
 		// Disable save new preset
 		ctrlEnable [1605, false];
 		(displayCtrl 1605) ctrlSetTooltip "Invalid Name/Already Exists";
@@ -331,7 +331,7 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 	// Get profile hashmap
 	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	// Check for similar names/key in presets
-	if ((_key in _profilePresets) || {_key in PIG_JetMenu_cfgPresets}) exitWith {systemChat format ["[ERROR] This name %1 already exist in the preset", str _key]};
+	if ((_key in _profilePresets) || {_key in PIG_pylonsMenu_cfgPresets}) exitWith {systemChat format ["[ERROR] This name %1 already exist in the preset", str _key]};
 
 	private _vehicle = localNameSpace getVariable "PIG_vehicleInService";
 	private _loadout = PIG_jetLoadout;
@@ -369,8 +369,8 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 	private _vehicle = localNameSpace getVariable "PIG_vehicleInService";
 
 	// Cfg Preset
-	if (_key in PIG_JetMenu_cfgPresets) then {
-		private _pylonsCfg = PIG_JetMenu_cfgPresets get _key;
+	if (_key in PIG_pylonsMenu_cfgPresets) then {
+		private _pylonsCfg = PIG_pylonsMenu_cfgPresets get _key;
 		if (_pylonsCfg isEqualTo []) then {
 			// Reset to default
 			lbClear 1501;
@@ -438,7 +438,7 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 
 	if ((lbCurSel 1503) isEqualTo -1) exitWith {systemChat "[ERROR] No preset selected to rename"};
 	private _key = lbText [1503, (lbCurSel 1503)]; // The text that shows in the lb is the key name in the hashmaps
-	if (_key in PIG_JetMenu_cfgPresets) exitWith {systemChat format ["[ERROR] Can't rename the cfg presets", str _key]};
+	if (_key in PIG_pylonsMenu_cfgPresets) exitWith {systemChat format ["[ERROR] Can't rename the cfg presets", str _key]};
 
 	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	
@@ -483,10 +483,10 @@ if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(p
 	// Clear variables
 	PIG_jetLoadout = nil; 
 	PIG_fnc_reloadPresetsLb = nil;
-	(uiNamespace getVariable 'PiG_jetMenu_camera') cameraEffect ['terminate','back']; 
-	camDestroy (uiNamespace getVariable 'PiG_jetMenu_camera'); 
-	uiNamespace setVariable ['PiG_jetMenu_camera', nil];
-	deleteVehicle (uiNamespace getVariable 'PIG_jetMenu_LightSource');
-	uiNamespace setvariable ["PIG_jetMenu_LightSource", nil];
+	(uiNamespace getVariable 'PIG_pylonsMenu_camera') cameraEffect ['terminate','back']; 
+	camDestroy (uiNamespace getVariable 'PIG_pylonsMenu_camera'); 
+	uiNamespace setVariable ['PIG_pylonsMenu_camera', nil];
+	deleteVehicle (uiNamespace getVariable 'PIG_pylonsMenu_LightSource');
+	uiNamespace setvariable ["PIG_pylonsMenu_LightSource", nil];
 }];
 
