@@ -52,7 +52,7 @@ PIG_fnc_reloadPresetsLb = {
 	}forEach _presetCfgPaths;
 
 	// Get pylon profile preset for this aircraft
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 
 	{
 		// Ignore preset from another aircraft class
@@ -175,7 +175,7 @@ _pylonMagazines = getPylonMagazines _vehicle;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Create variable in profilenamespace
-if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(profileNamespace setVariable ["PIG_JetMenu_profilePresets", createHashMap])};
+if (isNil {(profileNamespace getVariable "PIG_pylons_profilePresets")}) then {(profileNamespace setVariable ["PIG_pylons_profilePresets", createHashMap])};
 
 /*
 	Hashmap order: 
@@ -276,7 +276,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	};
 
 	// Profile presets
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	if (_key in _profilePresets) then {
 		private _pylonsProfile = ((_profilePresets get _key) # 1); // # 1 = array that cointains the magazines in order
 		{
@@ -303,7 +303,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 (displayCtrl 1400) ctrlAddEventHandler ["EditChanged", {
 	params ["_control", "_newText"];
 
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	if ((_newText in _profilePresets) || {_newText in PIG_JetMenu_cfgPresets}) then {
 		// Disable save new preset
 		ctrlEnable [1605, false];
@@ -329,7 +329,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	// Get new key name
 	private _key = (ctrlText 1400);
 	// Get profile hashmap
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	// Check for similar names/key in presets
 	if ((_key in _profilePresets) || {_key in PIG_JetMenu_cfgPresets}) exitWith {systemChat format ["[ERROR] This name %1 already exist in the preset", str _key]};
 
@@ -348,7 +348,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 
 	if (lbCurSel 1503 == -1) exitWith {systemChat "[ERROR] No preset selected to save"};
 	
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	private _key = lbText [1503, (lbCurSel 1503)];
 	private _vehicle = localNameSpace getVariable "PIG_vehicleInService";
 	
@@ -406,7 +406,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	};
 
 	// Profile presets
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	if (_key in _profilePresets) then {
 		private _pylonsProfile = ((_profilePresets get _key) # 1); // # 1 = array that cointains the magazines and pylons in order
 
@@ -440,7 +440,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	private _key = lbText [1503, (lbCurSel 1503)]; // The text that shows in the lb is the key name in the hashmaps
 	if (_key in PIG_JetMenu_cfgPresets) exitWith {systemChat format ["[ERROR] Can't rename the cfg presets", str _key]};
 
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	
 	if ((ctrlText 1400) isEqualTo "") exitWith {systemChat "Enter a name for you preset"};
 	
@@ -466,7 +466,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	
 	if (lbCurSel 1503 isEqualTo -1) exitWith {systemChat "[ERROR] No preset selected to delete"};
 	private _key = lbText [1503, (lbCurSel 1503)];
-	private _profilePresets = (profileNamespace getVariable "PIG_JetMenu_profilePresets");
+	private _profilePresets = (profileNamespace getVariable "PIG_pylons_profilePresets");
 	if (_key in _profilePresets) then {
 		_profilePresets deleteAt _key;
 		lbDelete [1503, (lbCurSel 1503)];
