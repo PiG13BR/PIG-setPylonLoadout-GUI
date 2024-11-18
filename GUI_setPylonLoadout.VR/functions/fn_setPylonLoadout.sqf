@@ -37,7 +37,7 @@ PIG_fnc_reloadPresetsLb = {
 	
 	PIG_jetLoadout = [];
 	for "_i" from 1 to _originalCount do {
-			PIG_jetLoadout pushBack ""; // Restore default pylon slots
+		PIG_jetLoadout pushBack ""; // Restore default pylon slots
 	};
 
 	// Get cfg preset for this aircraft
@@ -90,7 +90,7 @@ for "_i" from 1 to _pylonCount do {
 _pylonMagazines = getPylonMagazines _vehicle;
 {
 	if (_x isEqualTo "") then { 
-			_defaultName = lbData [1501, _forEachIndex]; // Empty was selected
+			_defaultName = lbData [1501, _forEachIndex]; // Empty
 			lbSetText [1501, _forEachIndex, _defaultName + " " + "-" + " " + "empty"];
 			lbSetColor [1501, _forEachIndex, [1, 0, 0, 1]]; // RED COLOR
 			PIG_jetLoadout set [_forEachIndex, ""];
@@ -110,7 +110,7 @@ _pylonMagazines = getPylonMagazines _vehicle;
 	lbClear 1502;
 	// Get pylon name
 	private _pylonName = lbData [1501, _lbCurSel];
-	// Get aircraft selected
+	// Get aircraft
 	private _vehicle = localNameSpace getVariable "PIG_vehicleInService";
 	// Get compatible magazines for this aircraft class
 	private _compatibleMagazines = (_vehicle getCompatiblePylonMagazines _pylonName);
@@ -197,7 +197,7 @@ if (isNil {(profileNamespace getVariable "PIG_JetMenu_profilePresets")}) then {(
 	// Get the actual text in the listbox
 	_getText = lbText [1503, _lbCurSel];
 
-	// Get aircraft classname selected
+	// Get aircraft
 	_vehicle = localNameSpace getVariable "PIG_vehicleInService";
 
 	// Check if it's a cfg preset
