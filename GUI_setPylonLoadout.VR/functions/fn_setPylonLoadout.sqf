@@ -1,3 +1,19 @@
+/*
+	File: fn_setPylonLoadout.sqf
+	Author: PiG13BR - https://github.com/PiG13BR
+	Date: 2024/13/11
+	Last Update: 2024/15/11
+	License: MIT License - http://www.opensource.org/licenses/MIT
+
+	Description:
+		Creates and manages the jet camera menu angles
+
+	Parameter(s):
+		_vehicle - air vehicle object  [OBJECT]
+		
+	Returns:
+		-
+*/
 params ["_vehicle"];
 
 if (isEngineOn _vehicle) exitWith {systemChat "Turn off the engine"};
